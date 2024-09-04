@@ -5,8 +5,6 @@
 	- Focus URL cmd + L
 	- Disable Search cmd + F
 - Launch applications 
-	- zoommtg://zoom.us/join?confno=1234567890
-	- 
 - Disable/overwrite Right click
 - Scroll Jacking
 - Auto Play Audio
