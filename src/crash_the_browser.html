@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crash The Browser</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            margin: 0 auto;
+        }
+
+        #loaders {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            max-width: 100%;
+        }
+
+        #loaders div {
+            width: 5%; /* 100% / 20 = 5% */
+            box-sizing: border-box;
+            padding: 5px;
+        }
+
+        svg {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="crash()">Crash The Browser</button>
+
+    <div id="loaders"></div>
+
+    <script>
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function crash() {
+            console.log("Adding SVGs");
+
+            addSpinner();
+
+            let txt = "a";
+            let count = 0;
+
+            
+
+            while(1) {
+                txt += "a";
+            }
+
+        }
+
+        function addSpinner() {
+            document.getElementById("loaders").innerHTML = "<h1>Crashing...</h1>";
+            let loader = document.createElement("div");
+            loader.innerHTML = `
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <style>
+                    .spinner_P7sC{transform-origin:center;animation:spinner_svv2 .75s infinite linear}@keyframes spinner_svv2{100%{transform:rotate(360deg)}}
+                </style>
+                <path d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z" class="spinner_P7sC"/>
+            </svg>
+            `;
+
+            document.getElementById("loaders").appendChild(loader);
+        }
+    </script>
+</body>
+</html>
