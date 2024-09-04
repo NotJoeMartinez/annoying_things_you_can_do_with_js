@@ -1,0 +1,18 @@
+- Prevent Back click
+- Prevent copy paste
+- Overwrite common keyboard short cuts
+	- Tab switching cmd + numb
+	- Focus URL cmd + L
+	- Disable Search cmd + F
+- Disable/overwrite Right click
+- Scroll Jacking
+- Auto Play Audio
+- Auto Download
+- Site notifications
+- Spam cookie requests
+- Disable dev tools
+- Video Ad to follow user
+- Custom tool tip
+- Prevent open in new tab
+- OS based download options
+- Auto full screen

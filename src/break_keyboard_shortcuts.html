@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Break Keyboard Shortcuts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        #log {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Break Keyboard Shortcuts</h1>
+    <p>
+        This script will prevent the user from using most of the common keyboard shortcuts in the browser.
+    </p>
+    <div id="log"></div>
+
+    <script>
+        const log = document.getElementById('log');
+        
+        document.addEventListener('keydown', function(e) {
+            const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+            const modifier = isMac ? 'Cmd' : 'Ctrl';
+            
+            console.log(e.key);
+            if ((e.ctrlKey || e.metaKey) && 
+                ((e.key >= '0' && e.key <= '9') || 
+                 e.key === 'k' || 
+                 e.key === 'l' || 
+                 e.key === 'f' ||
+                 e.key === 'g' ||
+                 e.key === 'p' ||
+                 e.key === 'o' ||
+                 e.key === '=' || 
+                 e.key === '-' ||
+                 e.key === 'i' || 
+                 e.key == 's' ||
+                 e.key === 'j' ||
+                 e.key === 'd' ||
+                 e.key === 'c' ||
+                 e.key === 'v' ||
+                 e.key === 'x' ||
+                 e.key === 'z' ||
+                 e.key === 'a' ||
+                 e.key === 'u' ||
+                 e.key === 'y' ||
+                 e.key === 'b'
+                )) {
+                
+                e.preventDefault();
+                
+                let keyPressed = e.key;
+
+                
+                const logEntry = document.createElement('p');
+
+
+                let message = '';
+                switch (keyPressed) {
+                    case 'k':
+                        message += "Looks like you're trying navigate to the URL bar. Nope!";
+                        break;
+                    case 'l':
+                        message += "Looks like you're trying navigate to the URL bar. Nope!";
+                        break;
+                    case 'f':
+                        message += "Looks like you're trying to search. Nope!";
+                        break;
+                    case 'g':
+                        message += "Looks like you're trying to search. Nope!";
+                        break;
+                    case 'p':
+                        message += "Looks like you're trying to print. Nope!";
+                        break;
+                    case 'o':
+                        message += "Looks like you're trying to open a file. Nope!";
+                        break;
+                    case '=':
+                        message += "Looks like you're trying to zoom in. Nope!";
+                        break;
+                    case '-':
+                        message += "Looks like you're trying to zoom out. Nope!";
+                        break;
+                    case 'i':
+                        message += "Looks like you're trying to view site information. Nope!";
+                        break;
+                    case 'j':
+                        message += "Looks like you're trying to view downloads. Nope!";
+                        break;
+                    case 'd':
+                        message += "Looks like you're trying to bookmark this page. Nope!";
+                        break;
+                    case 's':
+                        message += "Looks like you're trying to save the page. Nope!";
+                        break;
+                    case 'a':
+                        message += "Looks like you're trying to select all. Nope!";
+                        break;
+                    case 'c':
+                        message += "Looks like you're trying to copy. Nope!";
+                        break;
+                    case 'v':
+                        message += "Looks like you're trying to paste. Nope!";
+                        break;
+                    case 'x':
+                        message += "Looks like you're trying to cut. Nope!";
+                        break;
+                    case 'z':
+                        message += "Looks like you're trying to undo. Nope!";
+                        break;
+                    case 'u':
+                        message += "Looks like you're trying to view page source. Nope!";
+                        break;
+                    case 'y':
+                        message += "Looks like you're trying to view your history. Nope!";
+                        break;
+                    case 'b':
+                        message += "Looks like you're trying to view your bookmarks. Nope!";
+                        break;
+
+                    
+                    case '0':
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                    case '7':
+                    case '8':
+                    case '9':
+                        message += "Looks like you're trying to switch tabs. Nope!";
+                        break;
+                }
+                
+
+                logEntry.textContent = `${modifier} + ${keyPressed.toUpperCase()}. ${message}`;
+                log.appendChild(logEntry);
+            }
+        });
+    </script>
+</body>
+</html>
