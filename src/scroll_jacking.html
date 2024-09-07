@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problematic Scroll Jacking Example for DMV-like Website</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        #content {
+            transition: transform 0.5s ease;
+        }
+        .section {
+            height: 100vh;
+            display: flex;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .image-container, .text-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-container img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+        .text-container {
+            padding: 20px;
+            flex-direction: column;
+        }
+        .section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4a6da7;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        #scrollbar {
+            position: fixed;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 100px;
+            background-color: #ddd;
+            border-radius: 10px;
+        }
+        #scrollHandle {
+            width: 20px;
+            height: 25px;
+            background-color: #999;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div id="section1" class="section">
+            <div class="image-container">
+                <img src="/imgs/img_1.png" alt="Driver License">
+            </div>
+            <div class="text-container">
+                <h2>Driver License Services</h2>
+                <p>The Texas Department of Public Safety issues driver licenses that are valid for up to eight years to Texas residents. Driver license offices are located throughout the state and offer services by appointment only.</p>
+                <a href="#" class="button">DL Requirements</a>
+            </div>
+        </div>
+        <div id="section2" class="section">
+            <div class="image-container">
+                <img src="/imgs/img_2.jpg" alt="Online Services">
+            </div>
+            <div class="text-container">
+                <h2>Online Services</h2>
+                <p>Did you know that most Texas driver licenses (DL) and identification cards (ID) can be renewed up to two years before and after the expiration date? You can also replace, or change your address or emergency contacts on your DL, CDL, ID or motorcycle license without going into a driver license office.</p>
+                <a href="#" class="button">Online Options</a>
+            </div>
+        </div>
+        <div id="section3" class="section">
+            <div class="image-container">
+                <img src="/imgs/img_3.jpg" alt="Identification Card">
+            </div>
+            <div class="text-container">
+                <h2>Identification Card Services</h2>
+                <p>The Texas Department of Public Safety issues identification card (ID) that are valid for up to six years to Texas residents. These photo ID cards are official documents that are used to prove a person's identity.</p>
+                <a href="#" class="button">ID Cards</a>
+            </div>
+        </div>
+        <div id="section4" class="section">
+            <div class="image-container">
+                <img src="/imgs/img_4.jpg" alt="Commercial Driver">
+            </div>
+            <div class="text-container">
+                <h2>Commercial Driver License Services</h2>
+                <p>A Commercial Driver License (CDL) authorizes an individual to operate a commercial motor vehicle or combination of motor vehicles used to transport passengers or property. Individuals applying for a Commercial Driver License should recognize that this is a professional license with more testing requirements than other licenses.</p>
+                <a href="#" class="button">CDL Requirements</a>
+            </div>
+        </div>
+
+        <div id="section5" class="section"></div>
+            <div class="image-container">
+                <img src="/imgs/img_5.jpg" alt="How can we help">
+            </div>
+            <div class="text-container">
+                <h2>How Can We Help? </h2>
+                <p>The Texas Department of Public Safety is committed to creating a faster, easier and friendlier driver license experience. Select here to find the most common topics that customers inquire about.</p>
+                <a href="#" class="button">ID Cards</a>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div id="scrollbar"><div id="scrollHandle"></div></div>
+
+    <script>
+        const content = document.getElementById('content');
+        const sections = document.querySelectorAll('.section');
+        const scrollHandle = document.getElementById('scrollHandle');
+        let currentSection = 0;
+        let isScrolling = false;
+        let scrollTimeout;
+
+        function scrollToSection(index) {
+            content.style.transform = `translateY(-${index * 100}vh)`;
+            scrollHandle.style.top = `${index * 25}px`;
+        }
+
+        window.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            if (isScrolling) return;
+            
+            isScrolling = true;
+            clearTimeout(scrollTimeout);
+            
+            if (e.deltaY > 0 && currentSection < sections.length - 1) {
+                currentSection++;
+            } else if (e.deltaY < 0 && currentSection > 0) {
+                currentSection--;
+            }
+            
+            scrollToSection(currentSection);
+            
+            scrollTimeout = setTimeout(() => {
+                isScrolling = false;
+            }, Math.random() * 1000 + 500); // Inconsistent delay
+        }, { passive: false });
+
+        // Purposely buggy implementation of scroll bar dragging
+        let isDragging = false;
+        scrollHandle.addEventListener('mousedown', () => isDragging = true);
+        window.addEventListener('mouseup', () => isDragging = false);
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                const newPosition = e.clientY - 250;
+                const newSection = Math.floor(newPosition / 25);
+                if (newSection >= 0 && newSection < sections.length) {
+                    currentSection = newSection;
+                    scrollToSection(currentSection);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
