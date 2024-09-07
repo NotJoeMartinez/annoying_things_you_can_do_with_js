@@ -1,9 +1,11 @@
+# Annoying things people do with JavaScript
+
+[Blog Post](https://notjoemartinez.com/blog/annoying_things_you_can_do_with_javascript/)
+
+
 - Prevent Back click
 - Prevent copy paste
 - Overwrite common keyboard short cuts
-	- Tab switching cmd + numb
-	- Focus URL cmd + L
-	- Disable Search cmd + F
 - Disable/overwrite Right click
 - Scroll Jacking
 - Launch applications 
@@ -17,10 +19,3 @@
 - Prevent open in new tab
 - OS based download options
 - Auto full screen
-
-
-uBlock Rules
-```
-! Disable Prevent Back Click
-*##+js(set, History.prototype.pushState, noopFunc)
-```
