@@ -11,50 +11,48 @@
             margin: 0;
             padding: 20px;
             background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .no-copy {
+        h1 {
+            text-align: center;
+            width: 100%;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+        .no-copy, .overwrite-clipboard {
             background-color: #fff;
             border: 1px solid #ddd;
             padding: 20px;
             margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
-        .overwrite-clipboard {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .no-copy ::selection {
+        .no-copy ::selection, .overwrite-clipboard ::selection {
             background-color: #ffeb3b;
             color: #000;
         }
-
-        .overwrite-clipboard ::selection {
-            background-color: #ffeb3b;
-            color: #000;
-        }
-
-
     </style>
 </head>
 <body>
     <h1>No Copy-Paste Example</h1>
 
-    <div class="no-copy">
-        <h2>This text cannot be copied</h2>
-        <p>
-             Here is some very important information that I won't let you copy for some reason. 
-        </p>
-    </div>
+    <div class="container">
+        <div class="no-copy">
+            <h2>This text cannot be copied</h2>
+            <p>
+                 Here is some very important information that I won't let you copy for some reason. 
+            </p>
+        </div>
 
-    <div class="overwrite-clipboard">
-        <h2>If you try to copy this text it will overwrite your clipboard</h2>
-        <p>
-            If you copy this text I will write something else to your clipboard.
-        </p>
-
+        <div class="overwrite-clipboard">
+            <h2>If you try to copy this text it will overwrite your clipboard</h2>
+            <p>
+                If you copy this text I will write something else to your clipboard.
+            </p>
+        </div>
     </div>
 
     <script>
@@ -91,7 +89,6 @@
                     e.preventDefault();
                 });
             });
-
         });
     </script>
 </body>
