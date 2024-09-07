@@ -1,7 +1,7 @@
 # Annoying things people do with JavaScript
 
 [Blog Post](https://notjoemartinez.com/blog/annoying_things_you_can_do_with_javascript/)
-
+[Tampermonkey Script](https://github.com/NotJoeMartinez/anti-annoyance-tampermonkey)
 
 - Prevent Back click
 - Prevent copy paste
