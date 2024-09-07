@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prevent Right Click</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .protected-text {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .custom-context-menu {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .custom-context-menu button {
+            display: block;
+            width: 100%;
+            padding: 8px 10px;
+            background-color: #fff;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+        }
+        .custom-context-menu button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Prevent Right Click and Useless Context Menu</h1>
+    
+    <div id="no-right-click" class="protected-text">
+        <h2>No Right-Click</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+        </p>
+    </div>
+
+    <div id="useless-context-menu-text" class="protected-text">
+        <h2>Useless Context Menu</h2>
+        <p>
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+    </div>
+
+    <div class="custom-context-menu">
+        <button onclick="window.open('https://www.buymeacoffee.com/notjoemartinez', '_blank')">
+            Send Me Money With Buy Me A Coffee
+        </button>
+        <button onclick="window.open('https://github.com/sponsors/NotJoeMartinez/', '_blank')">
+            Send Me Money With GitHub Sponsors
+        </button>
+        <button onclick="window.open('https://www.paypal.com/paypalme/notjoemartinez', '_blank')">
+            Sende Me Money With PayPal
+        </button>
+        <button onclick="window.open('https://wise.com/pay/me/josephalbertj', '_blank')">
+            Send Me Money With Wise
+        </button>
+    </div>
+
+    <script>
+        const protectedText = document.getElementById('no-right-click');
+        protectedText.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        const contextMenuText = document.getElementById('useless-context-menu-text');
+        const customContextMenu = document.querySelector('.custom-context-menu');
+        contextMenuText.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            customContextMenu.style.display = 'block';
+            customContextMenu.style.left = `${e.pageX}px`;
+            customContextMenu.style.top = `${e.pageY}px`;
+        });
+
+        document.addEventListener('click', function() {
+            customContextMenu.style.display = 'none';
+        });
+
+        // Prevent the context menu from closing when clicking on it
+        customContextMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // Prevent the default context menu on the custom menu itself
+        customContextMenu.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+
+        // prevent normal copy just for fun
+        document.addEventListener('DOMContentLoaded', function() {
+            const noCopyElements = document.querySelectorAll('.protected-text');
+            
+            noCopyElements.forEach(function(element) {
+               
+                element.addEventListener('copy', function(e) {
+                    e.preventDefault();
+                });
+                
+                element.addEventListener('cut', function(e) {
+                    e.preventDefault();
+                });
+                
+                element.addEventListener('paste', function(e) {
+                    e.preventDefault();
+                });
+            });
+        });
+
+    </script>
+</body>
+</html>
+
