@@ -25,12 +25,6 @@
             padding: 20px;
             margin-bottom: 20px;
         }
-        .copyable {
-
-            background-color: #e6f7ff;
-            border: 1px solid #91d5ff;
-            padding: 20px;
-        }
 
         .no-copy ::selection {
             background-color: #ffeb3b;
@@ -61,10 +55,6 @@
             If you copy this text I will write something else to your clipboard.
         </p>
 
-    </div>
-    <div class="copyable">
-        <h2>This text can be copied</h2>
-        <p>You can select and copy this text normally.</p>
     </div>
 
     <script>
@@ -103,8 +93,6 @@
             });
 
         });
-
-
         // prevent context menu
         /*
             element.addEventListener('contextmenu', function(e) {
