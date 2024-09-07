@@ -30,12 +30,15 @@
         const log = document.getElementById('log');
         
         document.addEventListener('keydown', function(e) {
-           
+            const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+            const modifier = isMac ? 'Cmd' : 'Ctrl';
+
+            
             const targetKeys = [
                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
                 'k', 'l', 'f', 'g', 'p', 'o', '=', '-', 'i', 's',
                 'j', 'd', 'c', 'v', 'x', 'z', 'a', 'u', 'y', 'b',
-                'r',
+                'r'
             ];
             if ((e.ctrlKey || e.metaKey) && targetKeys.includes(e.key)) {
                
