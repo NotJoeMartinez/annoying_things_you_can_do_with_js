@@ -1,0 +1,23 @@
+<html>
+<body>
+
+<div id="no-copy">
+	<p>
+		Here is some very important information that I won't let you copy for some reason. 
+	</p>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	const noCopyElem = document.getElementById('no-copy');
+    noCopyElem.addEventListener('copy', function(e) {
+        e.preventDefault();
+    });
+    noCopyElem.addEventListener('cut', function(e) {
+        e.preventDefault();
+    });
+});
+</script>
+
+
+</body>
+</html>

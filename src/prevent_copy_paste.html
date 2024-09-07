@@ -47,7 +47,7 @@
 </head>
 <body>
     <h1>No Copy-Paste Example</h1>
-    
+
     <div class="no-copy">
         <h2>This text cannot be copied</h2>
         <p>
@@ -62,7 +62,6 @@
         </p>
 
     </div>
-    
     <div class="copyable">
         <h2>This text can be copied</h2>
         <p>You can select and copy this text normally.</p>
@@ -92,7 +91,10 @@
             overwriteClipboardElements.forEach(function(element) {
                 element.addEventListener('copy', function(e) {
                     e.preventDefault();
-                    e.clipboardData.setData('text/plain', 'I overwrote your clipboard!');
+                    let snarkyMessage = 'Trying to steal my publically available text? ';
+                    snarkyMessage += 'At least pay me for it! https://buymeacoffee.com/notjoemartinez';
+
+                    e.clipboardData.setData('text/plain', snarkyMessage);
                 });
 
                 element.addEventListener('cut', function(e) {

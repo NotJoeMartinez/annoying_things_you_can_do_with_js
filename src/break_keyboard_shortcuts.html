@@ -32,32 +32,15 @@
         document.addEventListener('keydown', function(e) {
             const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
             const modifier = isMac ? 'Cmd' : 'Ctrl';
+
             
-            console.log(e.key);
-            if ((e.ctrlKey || e.metaKey) && 
-                ((e.key >= '0' && e.key <= '9') || 
-                 e.key === 'k' || 
-                 e.key === 'l' || 
-                 e.key === 'f' ||
-                 e.key === 'g' ||
-                 e.key === 'p' ||
-                 e.key === 'o' ||
-                 e.key === '=' || 
-                 e.key === '-' ||
-                 e.key === 'i' || 
-                 e.key == 's' ||
-                 e.key === 'j' ||
-                 e.key === 'd' ||
-                 e.key === 'c' ||
-                 e.key === 'v' ||
-                 e.key === 'x' ||
-                 e.key === 'z' ||
-                 e.key === 'a' ||
-                 e.key === 'u' ||
-                 e.key === 'y' ||
-                 e.key === 'b'
-                )) {
-                
+            const targetKeys = [
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                'k', 'l', 'f', 'g', 'p', 'o', '=', '-', 'i', 's',
+                'j', 'd', 'c', 'v', 'x', 'z', 'a', 'u', 'y', 'b'
+            ];
+            if ((e.ctrlKey || e.metaKey) && targetKeys.includes(e.key)) {
+               
                 e.preventDefault();
                 
                 let keyPressed = e.key;
