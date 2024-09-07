@@ -73,74 +73,76 @@
 </head>
 <body>
     <div id="content">
-        <div id="section1" class="section">
-            <div class="image-container">
-                <img src="/imgs/img_1.png" alt="Driver License">
-            </div>
-            <div class="text-container">
-                <h2>Driver License Services</h2>
-                <p>The Texas Department of Public Safety issues driver licenses that are valid for up to eight years to Texas residents. Driver license offices are located throughout the state and offer services by appointment only.</p>
-                <a href="#" class="button">DL Requirements</a>
-            </div>
-        </div>
-        <div id="section2" class="section">
-            <div class="image-container">
-                <img src="/imgs/img_2.jpg" alt="Online Services">
-            </div>
-            <div class="text-container">
-                <h2>Online Services</h2>
-                <p>Did you know that most Texas driver licenses (DL) and identification cards (ID) can be renewed up to two years before and after the expiration date? You can also replace, or change your address or emergency contacts on your DL, CDL, ID or motorcycle license without going into a driver license office.</p>
-                <a href="#" class="button">Online Options</a>
-            </div>
-        </div>
-        <div id="section3" class="section">
-            <div class="image-container">
-                <img src="/imgs/img_3.jpg" alt="Identification Card">
-            </div>
-            <div class="text-container">
-                <h2>Identification Card Services</h2>
-                <p>The Texas Department of Public Safety issues identification card (ID) that are valid for up to six years to Texas residents. These photo ID cards are official documents that are used to prove a person's identity.</p>
-                <a href="#" class="button">ID Cards</a>
-            </div>
-        </div>
-        <div id="section4" class="section">
-            <div class="image-container">
-                <img src="/imgs/img_4.jpg" alt="Commercial Driver">
-            </div>
-            <div class="text-container">
-                <h2>Commercial Driver License Services</h2>
-                <p>A Commercial Driver License (CDL) authorizes an individual to operate a commercial motor vehicle or combination of motor vehicles used to transport passengers or property. Individuals applying for a Commercial Driver License should recognize that this is a professional license with more testing requirements than other licenses.</p>
-                <a href="#" class="button">CDL Requirements</a>
-            </div>
-        </div>
-
-        <div id="section5" class="section"></div>
-            <div class="image-container">
-                <img src="/imgs/img_5.jpg" alt="How can we help">
-            </div>
-            <div class="text-container">
-                <h2>How Can We Help? </h2>
-                <p>The Texas Department of Public Safety is committed to creating a faster, easier and friendlier driver license experience. Select here to find the most common topics that customers inquire about.</p>
-                <a href="#" class="button">ID Cards</a>
-            </div>
-        </div>
-
     </div>
-
 
     <div id="scrollbar"><div id="scrollHandle"></div></div>
 
     <script>
         const content = document.getElementById('content');
-        const sections = document.querySelectorAll('.section');
         const scrollHandle = document.getElementById('scrollHandle');
         let currentSection = 0;
         let isScrolling = false;
         let scrollTimeout;
 
+        const sectionsData = [
+            {
+                title: "Driver License Services",
+                text: "The Texas Department of Public Safety issues driver licenses that are valid for up to eight years to Texas residents. Driver license offices are located throughout the state and offer services by appointment only.",
+                image: "/imgs/img_1.png",
+                buttonText: "DL Requirements"
+            },
+            {
+                title: "Online Services",
+                text: "Did you know that most Texas driver licenses (DL) and identification cards (ID) can be renewed up to two years before and after the expiration date? You can also replace, or change your address or emergency contacts on your DL, CDL, ID or motorcycle license without going into a driver license office.",
+                image: "/imgs/img_2.jpg",
+                buttonText: "Online Options"
+            },
+            {
+                title: "Identification Card Services",
+                text: "The Texas Department of Public Safety issues identification card (ID) that are valid for up to six years to Texas residents. These photo ID cards are official documents that are used to prove a person's identity.",
+                image: "/imgs/img_3.jpg",
+                buttonText: "ID Cards"
+            },
+            {
+                title: "Commercial Driver License Services",
+                text: "A Commercial Driver License (CDL) authorizes an individual to operate a commercial motor vehicle or combination of motor vehicles used to transport passengers or property. Individuals applying for a Commercial Driver License should recognize that this is a professional license with more testing requirements than other licenses.",
+                image: "/imgs/img_4.jpg",
+                buttonText: "CDL Requirements"
+            },
+            {
+                title: "How Can We Help?",
+                text: "The Texas Department of Public Safety is committed to creating a faster, easier and friendlier driver license experience. Select here to find the most common topics that customers inquire about.",
+                image: "/imgs/img_5.jpg",
+                buttonText: "Help Topics"
+            }
+        ];
+
+        function createSections() {
+            sectionsData.forEach((section, index) => {
+                const sectionElement = document.createElement('div');
+                sectionElement.className = 'section';
+                sectionElement.id = `section${index + 1}`;
+                sectionElement.innerHTML = `
+                    <div class="image-container">
+                        <img src="${section.image}" alt="${section.title}">
+                    </div>
+                    <div class="text-container">
+                        <h2>${section.title}</h2>
+                        <p>${section.text}</p>
+                        <a href="#" class="button">${section.buttonText}</a>
+                    </div>
+                `;
+                content.appendChild(sectionElement);
+            });
+        }
+
+        createSections();
+
+        const sections = document.querySelectorAll('.section');
+
         function scrollToSection(index) {
             content.style.transform = `translateY(-${index * 100}vh)`;
-            scrollHandle.style.top = `${index * 25}px`;
+            scrollHandle.style.top = `${(index / (sections.length - 1)) * 75}px`;
         }
 
         window.addEventListener('wheel', (e) => {
@@ -160,17 +162,17 @@
             
             scrollTimeout = setTimeout(() => {
                 isScrolling = false;
-            }, Math.random() * 1000 + 500); // Inconsistent delay
+            }, Math.random() * 1000 + 500); 
         }, { passive: false });
 
-        // Purposely buggy implementation of scroll bar dragging
         let isDragging = false;
         scrollHandle.addEventListener('mousedown', () => isDragging = true);
         window.addEventListener('mouseup', () => isDragging = false);
         window.addEventListener('mousemove', (e) => {
             if (isDragging) {
-                const newPosition = e.clientY - 250;
-                const newSection = Math.floor(newPosition / 25);
+                const scrollbarRect = document.getElementById('scrollbar').getBoundingClientRect();
+                const newPosition = (e.clientY - scrollbarRect.top) / scrollbarRect.height;
+                const newSection = Math.floor(newPosition * sections.length);
                 if (newSection >= 0 && newSection < sections.length) {
                     currentSection = newSection;
                     scrollToSection(currentSection);
